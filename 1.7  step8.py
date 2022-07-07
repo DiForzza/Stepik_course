@@ -5,7 +5,7 @@ class TextInput:
     CHARS = "абвгдеёжзийклмнопрстуфхцчшщьыъэюя " + ascii_lowercase
     CHARS_CORRECT = CHARS + CHARS.upper() + digits
 
-    def __init__(self, name, size=10):
+    def _init_(self, name, size=10):
         self.check_name(name)
         self.name = name
         self.size = size
@@ -15,9 +15,9 @@ class TextInput:
 
     @classmethod
     def check_name(cls, name):
-        if not 3 < len(name) < 50:
+        if type(name) != str or len(name) < 3 or len(name) > 50:
             raise ValueError("некорректное поле name")
-        if name in cls.CHARS and name in cls.CHARS_CORRECT:
+        if not set(name) < set(cls.CHARS_CORRECT):
             raise ValueError("некорректное поле name")
 
 
@@ -25,7 +25,7 @@ class PasswordInput:
     CHARS = "абвгдеёжзийклмнопрстуфхцчшщьыъэюя " + ascii_lowercase
     CHARS_CORRECT = CHARS + CHARS.upper() + digits
 
-    def __init__(self, name, size=10):
+    def _init_(self, name, size=10):
         self.check_name(name)
         self.name = name
         self.size = size
@@ -35,14 +35,14 @@ class PasswordInput:
 
     @classmethod
     def check_name(cls, name):
-        if not 3 < len(name) < 50:
+        if type(name) != str or len(name) < 3 or len(name) > 50:
             raise ValueError("некорректное поле name")
-        if name in cls.CHARS and name in cls.CHARS_CORRECT:
+        if not set(name) < set(cls.CHARS_CORRECT):
             raise ValueError("некорректное поле name")
 
 
 class FormLogin:
-    def __init__(self, lgn, psw):
+    def _init_(self, lgn, psw):
         self.login = lgn
         self.password = psw
 

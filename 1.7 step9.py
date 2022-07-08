@@ -1,6 +1,7 @@
 from string import ascii_lowercase, digits
 import re
 
+
 class CardCheck:
     NUMBER_CORRECT = r'\d{4}-\d{4}-\d{4}-\d{4}'
     NAME_CORRECT = r'[A-Z\0-9]*\s[A-Z\0-9]*'
@@ -26,6 +27,7 @@ cc = CardCheck()
 is_number = CardCheck.check_card_number('1234-1a34-1234-1234')
 is_name = CardCheck.check_name('ASDASASD FSAFSA')
 print(is_name)
+print(is_number)
 #a = '3210-3452-8752-3874'
 #match = re.fullmatch(r'\d{4}-\d{4}-\d{4}-\d{4}', a)
 #print(match[0] if match else 'Not found')

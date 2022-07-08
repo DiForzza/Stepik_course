@@ -1,23 +1,23 @@
 from string import ascii_lowercase, digits
+import re
 
 class CardCheck:
-    CHARS_CORRECT = ('1234567890')
+    CHARS_CORRECT = r'\d{4}-\d{4}-\d{4}-\d{4}'
 
     def __init__(self):
         pass
 
     @classmethod
     def check_card_number(cls, number):
-        print(len(number))
-        # print(set(cls.CHARS_CORRECT))
-        if set(number) < set(cls.CHARS_CORRECT):
-            return True
-        else:
-            return False
+        match = re.fullmatch(cls.CHARS_CORRECT, number)
+        return True if match else False
 
 
 cc = CardCheck()
-print(cc.check_card_number('3210-3452-8752-3474'))
+print(cc.check_card_number('3210-3952-8752-3474'))
+#a = '3210-3452-8752-3874'
+#match = re.fullmatch(r'\d{4}-\d{4}-\d{4}-\d{4}', a)
+#print(match[0] if match else 'Not found')
 
 
 # Подвиг 8. Объявите класс CardCheck для проверки корректности информации на пластиковых картах. Этот класс должен иметь следующие методы:

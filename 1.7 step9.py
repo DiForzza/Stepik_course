@@ -2,19 +2,30 @@ from string import ascii_lowercase, digits
 import re
 
 class CardCheck:
-    CHARS_CORRECT = r'\d{4}-\d{4}-\d{4}-\d{4}'
+    NUMBER_CORRECT = r'\d{4}-\d{4}-\d{4}-\d{4}'
+    NAME_CORRECT = r'[A-Z\0-9]*\s[A-Z\0-9]*'
 
     def __init__(self):
         pass
 
     @classmethod
     def check_card_number(cls, number):
-        match = re.fullmatch(cls.CHARS_CORRECT, number)
+        match = re.fullmatch(cls.NUMBER_CORRECT, number)
         return True if match else False
+
+    @classmethod
+    def check_name(cls, name):
+        match = re.fullmatch(cls.NAME_CORRECT, name)
+        if match and len(match[0].split()) <= 2:
+            return True
+        else:
+            return False
 
 
 cc = CardCheck()
-print(cc.check_card_number('3210-3952-8752-3474'))
+is_number = CardCheck.check_card_number('1234-1a34-1234-1234')
+is_name = CardCheck.check_name('ASDASASD FSAFSA')
+print(is_name)
 #a = '3210-3452-8752-3874'
 #match = re.fullmatch(r'\d{4}-\d{4}-\d{4}-\d{4}', a)
 #print(match[0] if match else 'Not found')

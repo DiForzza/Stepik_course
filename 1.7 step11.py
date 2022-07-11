@@ -1,42 +1,33 @@
 class AppStore:
     def __init__(self):
-        blocked = False
+        self.list_app = {}
+        self.blocked = False
+        self.count_apps = 0
 
     def add_application(self, app):
-        pass
+        self.list_app[id(app)] = app
+        print(self.list_app[id(app)])
 
     def remove_application(self, app):
-        pass
+        self.list_app.pop(id(app))
 
     def block_application(self, app):
-        pass
+        obj = self.list_app.get(id(app), False)
+        if not obj:
+            return False
+        obj.blocked = True
+        return True
 
     def total_apps(self):
-        pass
+        return len(self.list_app)
 
 
 class Application:
-    def __init__(self, name, blocked=False):
+    def __init__(self, name):
         self.name = name
-        self.blocked = blocked
+        self.blocked = False
 
 
-# 'add_application(self, app) - добавление нового приложения app в магазин;
-# remove_application(self, app) - удаление приложения app из магазина;
-# block_application(self, app) - блокировка приложения app (устанавливает локальное свойство blocked объекта app в значение True);
-# total_apps(self) - возвращает общее число приложений в магазине.
-#
-# Класс AppStore предполагается использовать следующим образом (эти строчки в программе не писать):
-#
 store = AppStore()
-app_youtube = Application("Youtube")
-store.add_application(app_youtube)
-store.remove_application(app_youtube)
-# Здесь Application - класс, описывающий добавляемое приложение с указанным именем. Каждый объект класса Application должен содержать локальные свойства:
-#
-# name - наименование приложения (строка);
-# blocked - булево значение (True - приложение заблокировано; False - не заблокировано, изначально False).
-#
-# Как хранить список приложений в объектах класса AppStore решите сами.
-#
-# P.S. В программе нужно только объявить классы с указанным функционалом.'
+app_tatata = Application("Tatata")
+store.add_application(app_tatata)

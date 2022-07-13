@@ -11,16 +11,19 @@ def get_items():
         wb = load_workbook('FWUO.xlsx')
         ws = wb.active
         if ws['Z1'].value != int(datetime.now().strftime('%H')):
-            create_file()
+            if ws['Z2'].value is not None:
+                create_file(1)
+            else:
+                create_file(0)
         else:
             print('Обновлять можно раз в час.')
     except IOError:
-        create_file()
+        create_file(0)
     import time
     time.sleep(5)
 
 
-def create_file():
+def create_file(list_len):
     url = 'https://www.fwuo.ru/vendors/?query=*&vendor=all'
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -56,7 +59,11 @@ def create_file():
     list_count = []
     list_price = []
     sorted_list = sorted(all_list, key=lambda d: d['Price'])
-    for i in range(0, len(sorted_list)):
+    if list_len == 1:
+        length = len(sorted_list)
+    else:
+        length = 301
+    for i in range(0, length):
         list_id.append(sorted_list[i].get('id'))
         list_vendor.append(sorted_list[i].get('Vendor'))
         list_name.append(sorted_list[i].get('Name'))
